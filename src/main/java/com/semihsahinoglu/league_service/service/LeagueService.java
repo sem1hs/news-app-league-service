@@ -27,12 +27,10 @@ public class LeagueService {
         return leagueMapper.toDto(league);
     }
 
-
     public List<LeagueResponse> getAll() {
         List<League> leagueList = leagueRepository.findAll();
         return leagueList.stream().map(leagueMapper::toDto).toList();
     }
-
 
     public LeagueResponse create(LeagueCreateRequest leagueCreateRequest) {
         League league = leagueMapper.toEntity(leagueCreateRequest);
@@ -50,5 +48,9 @@ public class LeagueService {
     public void delete(Long id) {
         League league = leagueRepository.findById(id).orElseThrow(() -> new LeagueNotFoundException("Lig bulunamadı " + id));
         leagueRepository.delete(league);
+    }
+
+    public Boolean existsById(Long id) {
+        return leagueRepository.existsById(id);
     }
 }

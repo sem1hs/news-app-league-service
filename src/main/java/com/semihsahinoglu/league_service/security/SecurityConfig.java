@@ -29,6 +29,7 @@ public class SecurityConfig {
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth.requestMatchers(HttpMethod.GET, "/api/v1/league/**").permitAll())
+                .authorizeHttpRequests(auth -> auth.requestMatchers("/internal/league/**").hasAuthority("SCOPE_INTERNAL"))
                 .authorizeHttpRequests(auth -> auth.requestMatchers("/actuator/**").permitAll())
                 .authorizeHttpRequests(auth -> auth.anyRequest().authenticated())
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
