@@ -52,8 +52,6 @@ public class JwtService {
         return List.of();
     }
 
-
-
     public String extractUsername(String token) {
         Claims claims = Jwts.parser()
                 .verifyWith((SecretKey) getSignKey())
