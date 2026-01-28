@@ -1,4 +1,4 @@
-package com.semihsahinoglu.league_service.config.controller;
+package com.semihsahinoglu.league_service.controller;
 
 import com.semihsahinoglu.league_service.dto.LeagueResponse;
 import com.semihsahinoglu.league_service.service.LeagueService;
