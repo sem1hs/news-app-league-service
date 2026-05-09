@@ -23,10 +23,10 @@ public class LeagueMapper {
 
     public League toEntity(ApiFootballLeagueDto apiLeague, ApiFootballCountryDto country) {
         return League.builder()
-                .externalId(apiLeague.getId())
-                .name(apiLeague.getName())
-                .country(country.getName())
-                .logoUrl(apiLeague.getLogoUrl())
+                .externalId(apiLeague.id())
+                .name(apiLeague.name())
+                .country(country.name())
+                .logoUrl(apiLeague.logoUrl())
                 .build();
     }
 

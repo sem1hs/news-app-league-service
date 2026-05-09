@@ -27,12 +27,12 @@ public class LeagueSyncService {
     public League syncLeague(String leagueName, int season) {
         ApiFootballLeagueResponse response = footballApiClient.getLeague(leagueName, season);
 
-        if (response == null || response.getResponse() == null || response.getResponse().isEmpty())
+        if (response == null || response.response() == null || response.response().isEmpty())
             throw new LeagueNotFoundException("Lig bulunamadı : " + leagueName);
 
-        ApiFootballLeagueWrapper wrapper = response.getResponse().getFirst();
-        ApiFootballLeagueDto apiLeague = wrapper.getLeague();
-        ApiFootballCountryDto country = wrapper.getCountry();
+        ApiFootballLeagueWrapper wrapper = response.response().getFirst();
+        ApiFootballLeagueDto apiLeague = wrapper.league();
+        ApiFootballCountryDto country = wrapper.country();
 
         League league = leagueMapper.toEntity(apiLeague, country);
         return leagueRepository.save(league);
@@ -41,12 +41,12 @@ public class LeagueSyncService {
     public League syncLeagueByCountry(String countryName, int season) {
         ApiFootballLeagueResponse response = footballApiClient.getLeagueByCountry(countryName, season);
 
-        if (response == null || response.getResponse() == null || response.getResponse().isEmpty())
+        if (response == null || response.response() == null || response.response().isEmpty())
             throw new LeagueNotFoundException("Lig bulunamadı : " + countryName);
 
-        ApiFootballLeagueWrapper wrapper = response.getResponse().getFirst();
-        ApiFootballLeagueDto apiLeague = wrapper.getLeague();
-        ApiFootballCountryDto country = wrapper.getCountry();
+        ApiFootballLeagueWrapper wrapper = response.response().getFirst();
+        ApiFootballLeagueDto apiLeague = wrapper.league();
+        ApiFootballCountryDto country = wrapper.country();
 
         League league = leagueMapper.toEntity(apiLeague, country);
         return leagueRepository.save(league);
@@ -56,12 +56,12 @@ public class LeagueSyncService {
 
         ApiFootballLeagueResponse response = footballApiClient.getLeague(externalId, season);
 
-        if (response == null || response.getResponse() == null || response.getResponse().isEmpty())
+        if (response == null || response.response() == null || response.response().isEmpty())
             throw new LeagueNotFoundException("Lig bulunamadı : " + externalId);
 
-        ApiFootballLeagueWrapper wrapper = response.getResponse().getFirst();
-        ApiFootballLeagueDto apiLeague = wrapper.getLeague();
-        ApiFootballCountryDto country = wrapper.getCountry();
+        ApiFootballLeagueWrapper wrapper = response.response().getFirst();
+        ApiFootballLeagueDto apiLeague = wrapper.league();
+        ApiFootballCountryDto country = wrapper.country();
 
         League league = leagueMapper.toEntity(apiLeague, country);
         return leagueRepository.save(league);
