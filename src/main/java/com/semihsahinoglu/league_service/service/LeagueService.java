@@ -16,14 +16,31 @@ public class LeagueService {
 
     private final LeagueRepository leagueRepository;
     private final LeagueMapper leagueMapper;
+    private final LeagueSyncService leagueSyncService;
 
-    public LeagueService(LeagueRepository leagueRepository, LeagueMapper leagueMapper) {
+    public LeagueService(LeagueRepository leagueRepository, LeagueMapper leagueMapper, LeagueSyncService leagueSyncService) {
         this.leagueRepository = leagueRepository;
         this.leagueMapper = leagueMapper;
+        this.leagueSyncService = leagueSyncService;
     }
 
     public LeagueResponse getById(Long id) {
         League league = leagueRepository.findById(id).orElseThrow(() -> new LeagueNotFoundException("Lig bulunamadı " + id));
+        return leagueMapper.toDto(league);
+    }
+
+    public LeagueResponse getByExternalId(Long externalId, int season) {
+        League league = leagueRepository.findByExternalId(externalId).orElseGet(() -> leagueSyncService.syncLeague(externalId, season));
+        return leagueMapper.toDto(league);
+    }
+
+    public LeagueResponse getByName(String leagueName, int season) {
+        League league = leagueRepository.findByName(leagueName).orElseGet(() -> leagueSyncService.syncLeague(leagueName, season));
+        return leagueMapper.toDto(league);
+    }
+
+    public LeagueResponse getByCountry(String country, int season) {
+        League league = leagueRepository.findByCountry(country).orElseGet(() -> leagueSyncService.syncLeagueByCountry(country, season));
         return leagueMapper.toDto(league);
     }
 

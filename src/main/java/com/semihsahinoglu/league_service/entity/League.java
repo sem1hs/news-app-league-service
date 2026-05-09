@@ -19,16 +19,20 @@ public class League extends Auditable {
     @Column(nullable = false)
     private String country;
 
+    @Column(name = "external_id", unique = true, nullable = false)
+    private Long externalId;
+
     @Column(name = "logo_url")
     private String logoUrl;
 
     protected League() {
     }
 
-    private League(Builder builder) {
-        this.name = builder.name;
-        this.country = builder.country;
-        this.logoUrl = builder.logoUrl;
+    public League(String name, String country, Long externalId, String logoUrl) {
+        this.name = name;
+        this.country = country;
+        this.externalId = externalId;
+        this.logoUrl = logoUrl;
     }
 
     public static Builder builder() {
@@ -38,6 +42,7 @@ public class League extends Auditable {
     public static class Builder {
         private String name;
         private String country;
+        private Long externalId;
         private String logoUrl;
 
         private Builder() {
@@ -53,13 +58,18 @@ public class League extends Auditable {
             return this;
         }
 
+        public Builder externalId(Long externalId) {
+            this.externalId = externalId;
+            return this;
+        }
+
         public Builder logoUrl(String logoUrl) {
             this.logoUrl = logoUrl;
             return this;
         }
 
         public League build() {
-            return new League(this);
+            return new League(name, country, externalId, logoUrl);
         }
     }
 
@@ -75,6 +85,10 @@ public class League extends Auditable {
         return logoUrl;
     }
 
+    public Long getExternalId() {
+        return externalId;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -86,4 +100,6 @@ public class League extends Auditable {
     public void setLogoUrl(String logoUrl) {
         this.logoUrl = logoUrl;
     }
+
+    public void setExternalId(Long externalId) {}
 }

@@ -27,9 +27,21 @@ public class LeagueController {
         return ResponseEntity.status(HttpStatus.OK).body(leagues);
     }
 
-    @GetMapping("/{id}")
+    @GetMapping("/id/{id}")
     public ResponseEntity<LeagueResponse> getLeagueById(@PathVariable Long id) {
         LeagueResponse league = leagueService.getById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(league);
+    }
+
+    @GetMapping("/external/{externalId}")
+    public ResponseEntity<LeagueResponse> getLeagueByExternalId(@PathVariable Long externalId, @RequestParam(defaultValue = "2025") int season) {
+        LeagueResponse league = leagueService.getByExternalId(externalId, season);
+        return ResponseEntity.status(HttpStatus.OK).body(league);
+    }
+
+    @GetMapping("/{leagueName}")
+    public ResponseEntity<LeagueResponse> getLeagueByName(@PathVariable String leagueName, @RequestParam(defaultValue = "2025") int season) {
+        LeagueResponse league = leagueService.getByName(leagueName, season);
         return ResponseEntity.status(HttpStatus.OK).body(league);
     }
 

@@ -1,8 +1,8 @@
 package com.semihsahinoglu.league_service.dto;
 
 public record LeagueResponse(
-
         Long id,
+        Long externalId,
         String name,
         String country,
         String logoUrl
@@ -15,6 +15,7 @@ public record LeagueResponse(
 
     public static class Builder {
         private Long id;
+        private Long externalId;
         private String name;
         private String country;
         private String logoUrl;
@@ -24,6 +25,11 @@ public record LeagueResponse(
 
         public Builder id(Long id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder externalId(Long externalId) {
+            this.externalId = externalId;
             return this;
         }
 
@@ -43,7 +49,7 @@ public record LeagueResponse(
         }
 
         public LeagueResponse build() {
-            return new LeagueResponse(id, name, country, logoUrl);
+            return new LeagueResponse(id, externalId, name, country, logoUrl);
         }
     }
 }
